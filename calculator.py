@@ -102,7 +102,7 @@ def SQRT():
   res = math.sqrt(SqRoNum)
   print("The square root of " + str(SqRoNum) + " is " + str(res))
 
-    def CBRT():
+def CBRT():
   print(Fore.BLACK + "You chose cube root")
   CbRoNum = int(input("Enter the number you want to cube root: "))
   res = round(CbRoNum**(1 / 3), 10)
