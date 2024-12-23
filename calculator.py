@@ -204,7 +204,7 @@ def I():
       I()
     elif CR.lower() == "no":
       End()
-  if user_input == 13:
+  if user_input == 13 or user_input == 00:
     End()
   if user_input > 13 or user_input < 1:
     print(Fore.RED + "Invalid Input. Please try again...")
