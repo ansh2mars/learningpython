@@ -185,46 +185,55 @@ def CTC():
     else:
         print(f"I'm sorry, but '{mmmr}' is an invalid input. Please try again.")
         CTC()
-def Trig(func, arc):
-    if arc:
-        def Main(nu, de):
-            print("Okay, we will continue with the sine.")
-            num = int(input("Enter the numerator of the fraction of your sine: "))
-            den = int(input("Enter the denominator of the fraction of your sine: "))
-            if nu and not de:
-                num = math.sqrt(num)
-            elif de and not nu:
-                den = math.sqrt(den)
-            elif nu and de:
-                num = math.sqrt(num)
-                den = math.sqrt(den)
-            if den == 0:
-                print("Error: Denominator cannot be zero.")
-                return
-            x = num / den
-            if not -1 <= x <= 1:
-                print(f"The fraction {num}/{den} or {x} is out of range for arcsine calculation. It must be between -1 and 1.")
-                return
-            mf = getattr(math, func)
-            rx = mf(x)
-            print(f"The arcsine in radians is about {round(rx, 10)} radians.")
-            dx = (rx * 180) / math.pi
-            print(f"The arcsine in degrees is about {round(dx, 5)}°.")
-        ndbo = input("Before we begin, is there square root in the sine? If so, in which of the following? (n for numerator/d for denominator/b for both/o for none): ")
-        if ndbo == 'n':
-            Main(True, False)
-        elif ndbo == 'd':
-            Main(False, True)
-        elif ndbo == 'b':
-            Main(True, True)
-        elif ndbo == 'o':
-            Main(False, False)
-        else:
-            print(f"Invalid input for square root choice.")
 
+def Trig(rf, func):
+    def AM(nu, de):
+        print(f"Okay, we will continue with the arc {rf}.")
+        num = int(input(f"Enter the numerator of the fraction of your {rf}: "))
+        den = int(input(f"Enter the denominator of the fraction of your {rf}: "))
+        if nu and not de:
+            num = math.sqrt(num)
+        elif de and not nu:
+            den = math.sqrt(den)
+        elif nu and de:
+            num = math.sqrt(num)
+            den = math.sqrt(den)
+        if den == 0:
+            print("Error: The denominator cannot be zero.")
+            return
+        x = num / den
+        if not -1 <= x <= 1 and (rf == 'sine' or rf == 'cosine'):
+            print(f"The fraction {num}/{den} or {x} is out of range for arc {rf} calculation. It must be between -1 and 1.")
+            return
+        mf = getattr(math, func)
+        rx = mf(x)
+        print(f"The arc {rf} in radians is about {round(rx, 10)} radians.")
+        dx = math.degrees(rx)
+        print(f"The arc {rf} in degrees is about {round(dx, 5)}°.")
+    ndbo = input(f"Before we begin, is there square root in the {rf}? If so, in which of the following? (n for numerator/d for denominator/b for both/o for none): ")
+    if ndbo == 'n':
+        AM(True, False)
+    elif ndbo == 'd':
+        AM(False, True)
+    elif ndbo == 'b':
+        AM(True, True)
+    elif ndbo == 'o':
+        AM(False, False)
+    else:
+        print(f"'{ndbo}' is an invalid input for square root choice.")
+
+def NuFa():
+    n = int(input("Enter the number you want to find the factors of: "))
+    f = []
+    for i in range(n):
+        if n%(i+1)==0:
+            f.append(i+1)
+        else:
+            continue
+    print(f"The factors of {n} are {f}.")
 
 def Main():
-    print("\n1: Addition\n2: Subtraction\n3: Multiplication\n4: Division\n5: Exponents\n6: Factorial\n7: Roots\n8: Central Tendency\n9: Logarithms\n10: Trigonometry\n11: End")
+    print("\n1: Addition\n2: Subtraction\n3: Multiplication\n4: Division\n5: Exponents\n6: Factorial\n7: Roots\n8: Central Tendency\n9: Logarithms\n10: Trigonometry\n11: Number Factoring\n12: End")
     s = input("Enter your selection: ")
     if s == '1':
         Add()
@@ -254,8 +263,17 @@ def Main():
         Log()
         NF()
     elif s == '10':
-        ts = input("Which trigonometric function would you like to do: ")
+        ts = input("Which trigonometric function would you like to do(arcsin/arccos/arctan): ")
+        if ts == 'arcsin':
+            Trig('sine', 'asin')
+        elif ts == 'arccos':
+            Trig('cosine', 'acos')
+        elif ts == 'xarctan':
+            Trig('tangent', 'atan')
     elif s == '11':
+        NuFa()
+        NF()
+    elif s == '12':
         SystemExit
     else:
         print(f"I'm sorry, but '{s}' is an invalid input. Please try again.")
